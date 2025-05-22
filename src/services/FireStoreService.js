@@ -274,6 +274,32 @@ export default function firestoreService() {
     }
   };
 
+  const deletarDocumentoPorID = async (colecao, docID) => {
+    try {
+      const docRef = doc(db, colecao, docID);
+      await deleteDoc(docRef);
+      console.log(`Documento ${docID} deletado com sucesso da coleção ${colecao}.`);
+      return true;
+    } catch (error) {
+      console.error(`Erro ao deletar documento ${docID}:`, error);
+      return false;
+    }
+  };
+
+  const editarNomeDoDocumento = async (colecao, docID, novoNome) => {
+    try {
+      const docRef = doc(db, colecao, docID);
+      await updateDoc(docRef, {
+        nome: novoNome
+      });
+      console.log(`Campo 'nome' do documento ${docID} atualizado com sucesso.`);
+      return true;
+    } catch (error) {
+      console.error(`Erro ao atualizar nome do documento ${docID}:`, error);
+      return false;
+    }
+  };
+
   return {
     buscaGenericaPorIDRealTime,
     buscaGenericaWhere,
@@ -285,5 +311,7 @@ export default function firestoreService() {
     atualizarParametroDocumento,
     salvaCampanhaComprasCustom,
     buscaParticipanteCampanhaCustom,
+    deletarDocumentoPorID,
+    editarNomeDoDocumento,
   };
 }

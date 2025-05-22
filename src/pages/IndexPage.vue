@@ -10,9 +10,13 @@
             <q-input filled v-model="usuario.nome" label="Nome" />
             <q-input filled v-model="usuario.cpf" label="CPF" unmasked-value mask="###.###.###-##" class="q-mt-sm" />
           </q-card-section>
-          <q-card-actions align="right">
+          <q-card-actions align="center">
             <q-btn label="Iniciar Quiz" color="primary" :disable="!usuario.nome || !usuario.cpf" @click="showUserDialog = false" />
 
+
+          </q-card-actions>
+          <q-card-actions  align="center">
+            <q-btn label="Visualizar respostas" color="green"  @click="moveTo()" />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -71,21 +75,24 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import firestoreService from "src/services/FireStoreService";
+import { useRouter } from "vue-router";
 
 const {
   salvaGenericaComID,
-      buscarColecao,
+
 
     } = firestoreService();
+
+    const router = useRouter();
 const usuario = ref({
   nome: "",
   cpf: "",
   perguntas_respostas: [],
 })
 
-onMounted(async() => {
-await salvarDadosQuiz()
-})
+// onMounted(async() => {
+// await salvarDadosQuiz()
+// })
 
 const showUserDialog = ref(true)
 
@@ -203,5 +210,9 @@ const salvarDadosQuiz = async () => {
 const result = await salvaGenericaComID("Quiz",usuario.value.cpf, usuario.value);
 
 }
+
+const moveTo = (mover) => {
+  router.push(`/lista-respostas`);
+};
 </script>
 
