@@ -9,6 +9,8 @@ import {
   where,
   arrayUnion,
   runTransaction,
+  deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "boot/firebase";
 import { Timestamp } from "firebase/firestore";
@@ -287,6 +289,7 @@ export default function firestoreService() {
   };
 
   const editarNomeDoDocumento = async (colecao, docID, novoNome) => {
+    console.log(colecao, docID, novoNome)
     try {
       const docRef = doc(db, colecao, docID);
       await updateDoc(docRef, {

@@ -70,7 +70,7 @@
 
           </q-card-section>
           <q-card-actions align="center">
-            <q-btn label="Alterar" color="primary"   />
+            <q-btn label="Alterar" color="primary" @click="handleEditar()"   />
 
 
           </q-card-actions>
@@ -98,7 +98,7 @@ const linhas = ref([])
 const colunas = [
   { name: 'cpf', label: 'CPF', field: 'cpf', align: 'left' },
   { name: 'nome', label: 'Nome', field: 'nome', align: 'left' },
-  { name: 'resposta', label: 'Resposta', field: 'resposta', align: 'left' },
+  { name: 'perguntas_respostas', label: 'Respostas', field: 'perguntas_respostas', align: 'left' },
   { name: 'actions', label: 'Ações', field: 'actions', align: 'center' }
 ]
 
@@ -134,10 +134,16 @@ const metodoEditar = (usuario) => {
   showuserDialog.value = true
 }
 
-const editarNome = async () => {
-  const result = await editarNomeDoDocumento("Quiz",usuario.value.cpf, {nome: novo_nome.value})
-  await metodoBuscarUsuariosTotal()
-  showuserDialog.value = false
+const handleEditar = async () => {
+  try {
+console.log('Quiz', usuario.value.cpf, novo_nome.value)
+    const sucesso = await editarNomeDoDocumento('Quiz', usuario.value.cpf, novo_nome.value)
+    if (sucesso) {
+      console.log('Nome atualizado com sucesso')
+    }
+  } catch (error) {
+    console.error('Erro ao editar:', error)
+  }
 }
 </script>
 
