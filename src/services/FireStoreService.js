@@ -93,15 +93,11 @@ export default function firestoreService() {
 
   return {
     buscaGenericaPorIDRealTime,
-    buscaGenericaWhere,
-    salvaGenericaSemID,
+
     salvaGenericaComID,
-    salvaPesquisaCustom,
-    salvaPerguntaCustom,
+
     buscarColecao,
-    atualizarParametroDocumento,
-    salvaCampanhaComprasCustom,
-    buscaParticipanteCampanhaCustom,
+
     deletarDocumentoPorID,
     editarNomeDoDocumento,
   };
